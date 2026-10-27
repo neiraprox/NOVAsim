@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<title>NOVA | Simulador empresarial</title>
+<style>
+:root{--bg:#0b1020;--panel:#141c30;--panel2:#10182a;--border:#29354c;--text:#eef4ff;--muted:#9caec7;--mint:#70f0c0;--mintdark:#173b3b;--danger:#ff9d9d;--yellow:#ffd780}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.wrap{max-width:1100px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{background:var(--mint);color:#10201c;border-radius:12px;padding:10px 14px;font-size:22px;font-weight:950}.brandname{font-weight:900;letter-spacing:2px}.muted{color:var(--muted)}.small{font-size:12px}.pill{display:inline-block;background:#203b3d;color:#8af0c7;border-radius:20px;padding:5px 9px;font-size:11px;font-weight:750}.hero{background:linear-gradient(130deg,#173b3b,#141c30 75%);border:1px solid var(--border);border-radius:18px;padding:24px;margin-bottom:15px}.hero h1{font-size:clamp(28px,5vw,43px);line-height:1.08;margin:12px 0}.accent{color:var(--mint)}.panel{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:15px}.title{font-size:18px;font-weight:850;margin:0 0 13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:15px}.stat{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:13px;min-width:0}.stat strong{display:block;font-size:clamp(17px,2.7vw,23px);margin-top:6px;overflow-wrap:anywhere}.stat .muted{font-size:12px}.field{display:block;color:#c0cce0;font-size:13px;margin:0 0 12px}.field input,.field select{display:block;width:100%;background:#0b1222;color:var(--text);border:1px solid #394862;border-radius:9px;padding:11px;margin-top:5px}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:800;background:var(--mint);color:#10201c}.btn.secondary{background:#26344d;color:#e8efff;border:1px solid #3b4c69}.btn.danger{background:#4a252e;color:#ffd7d7;border:1px solid #74404b}.btn:disabled{opacity:.4;cursor:not-allowed}.full{width:100%}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.product{background:var(--panel2);border:1px solid #33425c;border-radius:12px;padding:14px;margin-top:10px}.product h3{margin:0;font-size:16px}.productgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:13px 0}.mini{border-radius:9px;background:#182238;padding:9px}.mini span{display:block;font-size:11px;color:var(--muted)}.mini strong{display:block;margin-top:4px;overflow-wrap:anywhere}.bar{height:7px;background:#26344b;border-radius:9px;overflow:hidden}.bar>div{height:100%;background:var(--mint)}.log{padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:#cfdaeb}.log:last-child{border:0}.hidden{display:none!important}.notice{border-radius:10px;padding:11px 13px;margin:12px 0;background:#203b3d;border:1px solid #477b6b;color:#d9fff0;font-size:13px}.notice.warn{background:#40331c;border-color:#725c2d;color:#ffe9b0}.notice.bad{background:#42242c;border-color:#74404b;color:#ffd7d7}.foot{text-align:center;font-size:12px;color:var(--muted);padding:12px}.inline-actions{display:flex;gap:8px;flex-wrap:wrap}.inline-actions button{flex:1}.empty{font-size:14px;color:var(--muted);padding:8px 0}hr{border:0;border-top:1px solid var(--border);margin:15px 0}
+@media(max-width:700px){.wrap{padding:13px}.panel{padding:14px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.productgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.top{align-items:flex-start}.hero{padding:18px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">N</div><div><div class="brandname">NOVA <span class="muted" style="font-weight:500;letter-spacing:0">SIMULATOR</span></div><div class="muted small">Tu empresa. Tus decisiones.</div></div></div>
+    <span class="pill">PROTOTIPO V1</span>
+  </header>
+
+  <section id="setup">
+    <div class="hero">
+      <span class="pill">TU HISTORIA EMPRESARIAL COMIENZA AQUÍ</span>
+      <h1>Construye una empresa.<br><span class="accent">Toma el control.</span></h1>
+      <p class="muted">Crea productos, decide sus precios, produce, compite y aprende a gestionar una empresa en Chile.</p>
+    </div>
+    <div class="panel">
+      <h2 class="title">01 / Crea tu empresa</h2>
+      <label class="field">Nombre de la empresa<input id="companyName" maxlength="45" value="Mi primera empresa" placeholder="Ej. Austral Labs"></label>
+      <label class="field">Rubro inicial<select id="category"><option value="retail">Comercio y tienda</option><option value="food">Alimentos y bebidas</option><option value="manufacturing">Fabricación y manufactura</option><option value="fashion">Moda y accesorios</option><option value="tech">Tecnología y electrónica</option></select></label>
+      <label class="field">Dificultad inicial<select id="difficulty"><option value="easy">Principiante — más capital y eventos suaves</option><option value="normal" selected>Normal — equilibrio</option><option value="hard">Experto — menos capital y más riesgos</option></select></label>
+      <div class="grid" style="margin-bottom:14px"><div class="stat"><span class="muted">Capital inicial</span><strong id="capitalPreview">$600.000</strong></div><div class="stat"><span class="muted">Capacidad inicial por producto</span><strong>100 uds.</strong></div></div>
+      <button class="btn full" id="startBtn">Crear empresa →</button>
+    </div>
+  </section>
+
+  <main id="game" class="hidden">
+    <div class="row" style="margin-bottom:15px;align-items:flex-start"><div><div class="muted small">TU EMPRESA</div><h1 id="gName" style="font-size:27px;margin:4px 0"></h1><div id="gMeta" class="muted small"></div></div><div class="inline-actions"><button id="saveBtn" class="btn secondary">Guardar</button><button id="resetBtn" class="btn secondary">Nueva partida</button></div></div>
+    <div id="statusNotice" class="notice hidden"></div>
+    <section class="stats">
+      <div class="stat"><span class="muted">💰 Dinero disponible</span><strong id="cash">$0</strong><span id="cashHint" class="muted small">Caja</span></div>
+      <div class="stat"><span class="muted">📈 Resultado acumulado</span><strong id="profit">$0</strong><span class="muted small">Estimación simplificada</span></div>
+      <div class="stat"><span class="muted">🛒 Ventas netas</span><strong id="sales">$0</strong><span class="muted small">Sin IVA</span></div>
+      <div class="stat"><span class="muted">⭐ Reputación</span><strong id="rep">50/100</strong><div class="bar" style="margin-top:7px"><div id="repBar" style="width:50%"></div></div></div>
+    </section>
+    <section class="panel">
+      <div class="row"><div><div class="muted small">CALENDARIO EMPRESARIAL</div><h2 id="week" style="margin:4px 0 0;font-size:23px">Semana 1</h2></div><span class="pill" id="modeLabel">Por turnos</span></div>
+      <label class="field" style="margin-top:14px">Modo de tiempo<select id="timeMode"><option value="turns">Por turnos — avanzas cuando quieras</option><option value="continuous">Continuo simulado — avanzar por intervalos manuales</option></select></label>
+      <p class="muted small">En esta versión, ambos modos avanzan un período al pulsar el botón. El tiempo automático se añadirá después.</p>
+      <button id="advanceBtn" class="btn full">▶ Cerrar semana y avanzar</button>
+    </section>
+
+    <section class="panel">
+      <h2 class="title">02 / Diseña tus productos</h2>
+      <p class="muted small">Tú decides el nombre, las características, el costo y el precio. Los costos y precios son netos, sin IVA.</p>
+      <label class="field">Nombre del producto<input id="pName" maxlength="40" placeholder="Ej. Zapatillas Aurora"></label>
+      <label class="field">Características<input id="pDesc" maxlength="100" placeholder="Ej. Livianas, resistentes, edición urbana"></label>
+      <div class="grid">
+        <label class="field">Precio neto (CLP)<input id="pPrice" type="number" min="1" max="100000000" value="12000"></label>
+        <label class="field">Costo unitario neto (CLP)<input id="pCost" type="number" min="1" max="100000000" value="5000"></label>
+        <label class="field">Calidad<select id="pQuality"><option value="1">1 — Básica</option><option value="2">2 — Simple</option><option value="3" selected>3 — Buena</option><option value="4">4 — Alta</option><option value="5">5 — Premium</option></select></label>
+        <label class="field">Capacidad semanal (unidades)<input id="pCapacity" type="number" min="1" max="100000" value="100"></label>
+      </div>
+      <label class="field">Forma de cobro<select id="pPayment"><option value="immediate">Cobro inmediato</option><option value="deferred">A crédito — cobro el siguiente turno</option></select></label>
+      <button id="createProduct" class="btn full">＋ Crear producto</button>
+    </section>
+
+    <section class="panel">
+      <div class="row"><h2 class="title" style="margin:0">03 / Tu catálogo</h2><span id="productCount" class="pill">0 productos</span></div>
+      <div id="products"><p class="empty">Todavía no has creado productos.</p></div>
+    </section>
+
+    <section class="panel">
+      <h2 class="title">04 / Publicidad y mercado</h2>
+      <p class="muted small">La publicidad aumenta el interés, pero cuesta dinero. Las ventas dependen del precio, la calidad, la reputación, la competencia y los eventos.</p>
+      <label class="field">Presupuesto publicitario semanal (CLP)<input id="marketing" type="number" min="0" max="100000000" value="10000"></label>
+      <div class="grid"><div class="stat"><span class="muted">Precio de referencia</span><strong id="benchmark">$0</strong></div><div class="stat"><span class="muted">Interés del mercado</span><strong id="marketMood">Normal</strong></div></div>
+    </section>
+
+    <section class="panel">
+      <h2 class="title">05 / Oportunidades especiales</h2>
+      <div id="orderContent"><p class="empty">Crea un producto para recibir pedidos especiales.</p></div>
+    </section>
+
+    <section class="panel">
+      <h2 class="title">06 / Finanzas e impuestos</h2>
+      <div class="grid">
+        <div class="stat"><span class="muted">Cuentas por cobrar</span><strong id="receivables">$0</strong></div>
+        <div class="stat"><span class="muted">IVA estimado pendiente</span><strong id="vat">$0</strong></div>
+        <div class="stat"><span class="muted">Costo de producción</span><strong id="productionCost">$0</strong></div>
+        <div class="stat"><span class="muted">Gastos acumulados</span><strong id="expenses">$0</strong></div>
+      </div>
+      <p class="muted small" style="margin-top:12px">El IVA usa una regla educativa simplificada del 19% sobre ventas simuladas menos crédito simulado de compras elegibles. No es una declaración válida ante el SII ni contempla todas las excepciones legales.</p>
+      <button id="payTax" class="btn secondary full" style="margin-top:10px">Simular pago de IVA del período</button>
+    </section>
+
+    <section class="panel">
+      <h2 class="title">07 / Diario empresarial</h2>
+      <div id="logs"><div class="log">Tu empresa está lista para empezar.</div></div>
+    </section>
+    <div class="foot">NOVA · Prototipo educativo. Guarda la partida en este navegador; no crea cuentas ni sincroniza entre dispositivos.</div>
+  </main>
+  <div id="toast" class="notice hidden" role="status"></div>
+</div>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const fmt = n => new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(Math.round(Number(n)||0));
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const categories = {
+  retail:{name:'Comercio y tienda',capital:600000},
+  food:{name:'Alimentos y bebidas',capital:500000},
+  manufacturing:{name:'Fabricación y manufactura',capital:750000},
+  fashion:{name:'Moda y accesorios',capital:550000},
+  tech:{name:'Tecnología y electrónica',capital:800000}
+};
+const difficulties = {easy:{cash:1.5,risk:.65,name:'Principiante'},normal:{cash:1,risk:1,name:'Normal'},hard:{cash:.7,risk:1.35,name:'Experto'}};
+const events = [
+  {name:'Semana normal',factor:1,desc:'La demanda se mantiene estable.'},
+  {name:'Tendencia favorable',factor:1.3,desc:'Una tendencia aumenta el interés del mercado.'},
+  {name:'Competidor agresivo',factor:.72,desc:'Un competidor baja sus precios y atrae clientes.'},
+  {name:'Mayor interés del público',factor:1.18,desc:'Más clientes buscan productos como los tuyos.'},
+  {name:'Semana lenta',factor:.78,desc:'La demanda general cae durante este período.'},
+  {name:'Costos logísticos al alza',factor:.92,desc:'El mercado se vuelve algo más difícil esta semana.'}
+];
+let state = null, order = null, logs = [], toastTimer = null;
+function notify(message,kind='') {
+  const el=$('toast'); el.textContent=message; el.className='notice'+(kind?' '+kind:'');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.add('hidden'),4200);
+}
+function addLog(message) {
+  logs.unshift(`Semana ${state.week}: ${message}`); logs=logs.slice(0,25); renderLogs();
+}
+function renderLogs() {
+  $('logs').innerHTML=logs.length?logs.map(x=>`<div class="log">${esc(x)}</div>`).join(''):'<p class="empty">Todavía no hay movimientos.</p>';
+}
+function startGame() {
+  const name=$('companyName').value.trim()||'Mi primera empresa';
+  const cat=$('category').value,dif=$('difficulty').value;
+  const initial=Math.round(categories[cat].capital*difficulties[dif].cash);
+  state={name,cat,dif,cash:initial,initial,week:1,rep:50,products:[],sales:0,profit:0,expenses:0,productionCost:0,outputVat:0,inputVat:0,vatCarry:0,taxPayable:0,receivables:0,pending:[],sold:0,bankrupt:false};
+  order=null;logs=[];
+  $('setup').classList.add('hidden');$('game').classList.remove('hidden');
+  $('gName').textContent=name;$('gMeta').textContent=categories[cat].name+' · '+difficulties[dif].name;
+  addLog(`Empresa creada con ${fmt(initial)} de capital inicial.`);
+  render();notify('¡Tu empresa está creada! Diseña tu primer producto.');
+}
+function createProduct() {
+  if(!state||state.bankrupt)return;
+  const name=$('pName').value.trim(),desc=$('pDesc').value.trim();
+  const price=Number($('pPrice').value),cost=Number($('pCost').value),quality=Number($('pQuality').value),capacity=Number($('pCapacity').value),payment=$('pPayment').value;
+  if(!name||!Number.isFinite(price)||price<=0||price>1e8||!Number.isFinite(cost)||cost<=0||cost>1e8||!Number.isFinite(capacity)||capacity<1||capacity>100000){notify('Completa nombre, precio, costo y capacidad con valores válidos.','warn');return}
+  if(state.products.some(p=>p.name.toLowerCase()===name.toLowerCase())){notify('Ya existe un producto con ese nombre.','warn');return}
+  if(state.products.length>=12){notify('Puedes crear hasta 12 productos en esta versión.','warn');return}
+  const product={id:Date.now()+Math.random(),name,desc,price:Math.round(price),cost:Math.round(cost),quality,capacity:Math.floor(capacity),payment,stock:0,totalMade:0,totalSold:0};
+  state.products.push(product);
+  addLog(`Creaste “${name}”, precio neto ${fmt(product.price)} y costo unitario ${fmt(product.cost)}.`);
+  if(!order||order.status!=='open')makeOrder();
+  $('pName').value='';$('pDesc').value='';render();notify('Producto añadido al catálogo.');
+}
+function produce(id) {
+  const p=state?.products.find(x=>x.id===id);if(!p||state.bankrupt)return;
+  const qty=Math.floor(Number($(`qty-${id}`)?.value));
+  if(!Number.isFinite(qty)||qty<1||qty>p.capacity){notify(`Elige una cantidad entre 1 y ${p.capacity}.`,'warn');return}
+  const cost=qty*p.cost;
+  const cashCost=Math.round(cost*1.19);
+  if(state.cash<cashCost){notify('No tienes efectivo suficiente para comprar los insumos de esa producción.','warn');return}
+  state.cash-=cashCost;
+  state.inputVat+=cost*.19;
+  state.productionCost+=cost;
+  p.stock+=qty;p.totalMade+=qty;
+  addLog(`Fabricaste ${qty} unidades de ${p.name}. Costo de insumos con IVA simulado: ${fmt(cashCost)}.`);
+  render();notify('Producción completada. Inventario actualizado.');
+}
+function makeOrder() {
+  if(!state?.products.length){order=null;return}
+  const p=state.products[Math.floor(Math.random()*state.products.length)];
+  order={pid:p.id,qty:Math.max(3,Math.floor(5+Math.random()*Math.min(25,p.capacity))),price:Math.round(p.price*(1.08+Math.random()*.32)),deadline:2,status:'open'};
+}
+function demandFor(p,marketing,event) {
+  const reference=Math.max(1,p.cost*2.35);
+  const priceFactor=Math.max(.12,Math.min(1.65,Math.pow(reference/Math.max(1,p.price),.72)));
+  const qualityFactor=.66+p.quality*.13;
+  const reputationFactor=.65+state.rep/160;
+  const advertisingFactor=1+Math.min(.65,marketing/Math.max(50000,p.price*12));
+  const competitorFactor=Math.max(.6,Math.min(1.25,1+(Math.random()-.5)*.24));
+  return Math.max(0,Math.floor((13+p.quality*5)*priceFactor*qualityFactor*reputationFactor*advertisingFactor*event.factor*competitorFactor));
+}
+function advanceWeek() {
+  if(!state||state.bankrupt)return;
+  if(!state.products.length){notify('Primero crea al menos un producto.','warn');return}
+  const marketing=Number($('marketing').value);
+  if(!Number.isFinite(marketing)||marketing<0||marketing>1e8){notify('Introduce un presupuesto publicitario válido.','warn');return}
+  const marketingCost=Math.round(marketing*1.19);
+  if(state.cash<marketingCost){notify('No tienes efectivo suficiente para pagar esa publicidad.','warn');return}
+  state.cash-=marketingCost;state.expenses+=marketing;state.profit-=marketing;state.inputVat+=marketing*.19;
+  const event=events[Math.floor(Math.random()*events.length)];
+  let soldWeek=0,netWeek=0,missed=0;
+  for(const p of state.products) {
+    const demand=demandFor(p,marketing,event);
+    const sold=Math.min(p.stock,demand);
+    p.stock-=sold;p.totalSold+=sold;soldWeek+=sold;netWeek+=sold*p.price;missed+=Math.max(0,demand-sold);
+    if(sold>0) {
+      const net=sold*p.price,gross=net*1.19;
+      state.outputVat+=net*.19;state.sales+=net;state.profit+=net-sold*p.cost;state.expenses+=sold*p.cost;state.sold+=sold;
+      if(p.payment==='deferred'){state.pending.push({amount:gross,due:state.week+1,description:`Venta de ${p.name}`});state.receivables+=gross;}
+      else state.cash+=gross;
+    }
+  }
+  if(soldWeek>=10)state.rep=Math.min(100,state.rep+1.5);
+  else if(soldWeek>0)state.rep=Math.min(100,state.rep+.5);
+  if(missed>0&&state.products.some(p=>p.stock===0))state.rep=Math.max(0,state.rep-.5);
+  state.week++;
+  const paid=[];
+  state.pending=state.pending.filter(item=>{
+    if(item.due<=state.week){state.cash+=item.amount;state.receivables-=item.amount;paid.push(item);return false}
+    return true;
+  });
+  if(paid.length)addLog(`Cobraste ${fmt(paid.reduce((sum,x)=>sum+x.amount,0))} de ventas a crédito.`);
+  addLog(`${event.name}: ${event.desc}`);
+  addLog(`Ventas de la semana: ${soldWeek} unidades, ${fmt(netWeek)} netos. Demanda no atendida estimada: ${missed} unidades.`);
+  if(state.week%4===1) {
+    const periodVat=Math.max(0,state.outputVat-state.inputVat+state.vatCarry);
+    state.taxPayable+=periodVat;
+    state.vatCarry=Math.max(0,state.inputVat-state.outputVat);
+    state.outputVat=0;state.inputVat=0;
+    addLog(`Cierre tributario educativo. IVA estimado añadido a obligaciones pendientes: ${fmt(periodVat)}.`);
+  }
+  if(Math.random()<.55)makeOrder();
+  else if(order&&order.status==='open'){order.deadline--;if(order.deadline<=0){order.status='expired';addLog('Venció un pedido especial que no fue aceptado.');}}
+  if(state.cash<0){state.bankrupt=true;addLog('La caja quedó negativa. La empresa necesita medidas de emergencia.');}
+  render();notify('Semana cerrada. Revisa tus ventas, caja y oportunidades.');
+}
+function acceptOrder() {
+  if(!state||!order||order.status!=='open')return;
+  const p=state.products.find(x=>x.id===order.pid);
+  if(!p){order=null;render();return}
+  if(p.stock<order.qty){notify('No tienes inventario suficiente. Fabrica más unidades antes de aceptar.','warn');return}
+  const net=order.qty*order.price,gross=net*1.19;
+  p.stock-=order.qty;p.totalSold+=order.qty;
+  state.sales+=net;state.profit+=net-order.qty*p.cost;state.outputVat+=net*.19;state.sold+=order.qty;
+  if(p.payment==='deferred'){state.pending.push({amount:gross,due:state.week+1,description:`Pedido especial de ${p.name}`});state.receivables+=gross}
+  else state.cash+=gross;
+  state.rep=Math.min(100,state.rep+2);order.status='done';
+  addLog(`Completaste el pedido especial de ${order.qty} unidades de ${p.name}. Venta neta: ${fmt(net)}.`);
+  render();notify('Pedido completado. ¡La reputación mejora!');
+}
+function renderProducts() {
+  if(!state.products.length){$('products').innerHTML='<p class="empty">Todavía no has creado productos. Diseña el primero para empezar a producir.</p>';$('productCount').textContent='0 productos';return}
+  $('productCount').textContent=`${state.products.length} producto${state.products.length===1?'':'s'}`;
+  $('products').innerHTML=state.products.map(p=>`
+  <article class="product">
+    <div class="row" style="align-items:flex-start"><div><h3>${esc(p.name)}</h3><p class="muted small" style="margin:5px 0">${esc(p.desc||'Sin descripción')}</p></div><span class="pill">Calidad ${p.quality}/5</span></div>
+    <div class="productgrid">
+      <div class="mini"><span>Precio neto</span><strong>${fmt(p.price)}</strong></div>
+      <div class="mini"><span>Costo unitario</span><strong>${fmt(p.cost)}</strong></div>
+      <div class="mini"><span>Inventario</span><strong>${p.stock} uds.</strong></div>
+      <div class="mini"><span>Vendidas</span><strong>${p.totalSold} uds.</strong></div>
+    </div>
+    <div class="bar"><div style="width:${Math.min(100,p.stock/Math.max(1,p.capacity)*100)}%"></div></div>
+    <label class="field" style="margin-top:12px">Fabricar unidades (máximo ${p.capacity} por semana)<input id="qty-${p.id}" type="number" min="1" max="${p.capacity}" value="${Math.min(20,p.capacity)}"></label>
+    <button class="btn full" data-produce="${p.id}" ${state.bankrupt?'disabled':''}>Fabricar unidades</button>
+  </article>`).join('');
+  $('products').querySelectorAll('[data-produce]').forEach(button=>button.addEventListener('click',()=>produce(Number(button.dataset.produce))));
+}
+function renderOrder() {
+  const el=$('orderContent');
+  if(!order||order.status!=='open'||!state.products.length) {
+    el.innerHTML=`<p class="empty">${!state.products.length?'Crea un producto para recibir pedidos especiales.':'No hay pedidos activos.'}</p><button id="newOrder" class="btn secondary full" ${!state.products.length||state.bankrupt?'disabled':''}>Buscar oportunidades</button>`;
+    $('newOrder').onclick=()=>{if(!state.products.length)return;makeOrder();render();};return;
+  }
+  const p=state.products.find(x=>x.id===order.pid);
+  if(!p){order=null;renderOrder();return}
+  el.innerHTML=`<span class="pill">PEDIDO ESPECIAL · ${order.deadline} turno(s) disponibles</span><h3 style="margin:12px 0 5px">${esc(p.name)}</h3><p class="muted small">Un cliente solicita ${order.qty} unidades y ofrece ${fmt(order.price)} por unidad, neto.</p>
+  <div class="grid" style="margin:12px 0"><div class="stat"><span class="muted">Ingreso neto potencial</span><strong>${fmt(order.qty*order.price)}</strong></div><div class="stat"><span class="muted">Inventario disponible</span><strong>${p.stock} uds.</strong></div></div>
+  <p class="muted small">En esta versión necesitas tener las unidades disponibles para completar el pedido. El cobro sigue la modalidad del producto.</p>
+  <div class="grid"><button class="btn" id="acceptOrder" ${state.bankrupt?'disabled':''}>Aceptar pedido</button><button class="btn secondary" id="rejectOrder" ${state.bankrupt?'disabled':''}>Rechazar</button></div>`;
+  $('acceptOrder').onclick=acceptOrder;
+  $('rejectOrder').onclick=()=>{order.status='done';addLog(`Rechazaste el pedido especial de ${p.name}.`);render();notify('Pedido rechazado. Puedes priorizar otras ventas.');};
+}
+function render() {
+  if(!state)return;
+  $('cash').textContent=fmt(state.cash);$('profit').textContent=fmt(state.profit);$('sales').textContent=fmt(state.sales);
+  $('rep').textContent=`${Math.round(state.rep)}/100`;$('repBar').style.width=`${state.rep}%`;
+  $('week').textContent=`Semana ${state.week}`;$('modeLabel').textContent=$('timeMode').value==='turns'?'Por turnos':'Tiempo continuo simulado';
+  $('receivables').textContent=fmt(state.receivables);$('vat').textContent=fmt(Math.max(0,state.taxPayable+state.outputVat-state.inputVat+state.vatCarry));
+  $('productionCost').textContent=fmt(state.productionCost);$('expenses').textContent=fmt(state.expenses);
+  $('benchmark').textContent=fmt(state.products.length?state.products.reduce((a,p)=>a+p.cost*2.35,0)/state.products.length:0);
+  $('marketMood').textContent=state.rep>=75?'Favorable':state.rep>=45?'Normal':'Difícil';
+  $('cashHint').textContent=state.cash<50000?'Caja ajustada: vigila tus gastos.':'Disponible para operar';
+  $('advanceBtn').disabled=state.bankrupt;$('advanceBtn').textContent=state.bankrupt?'Empresa en emergencia':'▶ Cerrar semana y avanzar';
+  $('statusNotice').classList.toggle('hidden',!state.bankrupt);
+  if(state.bankrupt){$('statusNotice').textContent='Tu caja está negativa. Esta partida está en estado de emergencia; puedes empezar una nueva partida.';$('statusNotice').className='notice bad'}
+  renderProducts();renderOrder();renderLogs();
+}
+function saveGame() {
+  if(!state){notify('Primero crea una empresa.','warn');return}
+  try {
+    const data={state,order,logs};
+    localStorage.setItem('novaSimulatorSaveV1',JSON.stringify(data));
+    notify('Partida guardada en este navegador.');
+  } catch(e) {notify('No se pudo guardar. Revisa la configuración del navegador.','warn')}
+}
+function loadGame() {
+  try {
+    const raw=localStorage.getItem('novaSimulatorSaveV1');
+    if(!raw)return false;
+    const data=JSON.parse(raw);
+    if(!data.state||!Array.isArray(data.state.products))return false;
+    state=data.state;order=data.order||null;logs=Array.isArray(data.logs)?data.logs:[];
+    $('setup').classList.add('hidden');$('game').classList.remove('hidden');
+    $('gName').textContent=state.name;$('gMeta').textContent=(categories[state.cat]?.name||'Empresa')+' · '+(difficulties[state.dif]?.name||'Normal');
+    render();notify('Se recuperó tu partida guardada.');return true;
+  } catch(e){return false}
+}
+$('startBtn').addEventListener('click',startGame);
+$('category').addEventListener('change',updateCapital);
+$('difficulty').addEventListener('change',updateCapital);
+function updateCapital(){const c=categories[$('category').value],d=difficulties[$('difficulty').value];$('capitalPreview').textContent=fmt(c.capital*d.cash)}
+$('createProduct').addEventListener('click',createProduct);
+$('advanceBtn').addEventListener('click',advanceWeek);
+$('timeMode').addEventListener('change',()=>{if(state){render();notify('Modo actualizado. El avance de esta versión sigue siendo manual.')}});
+$('payTax').addEventListener('click',()=>{
+  if(!state)return;
+  const due=Math.max(0,state.taxPayable+state.outputVat-state.inputVat+state.vatCarry);
+  if(due<=0){notify('No hay un monto positivo de IVA simulado pendiente.');return}
+  if(state.cash<due){notify('No tienes suficiente efectivo para el pago simulado.','warn');return}
+  state.cash-=due;state.expenses+=due;state.profit-=due;state.vatCarry=0;state.outputVat=0;state.inputVat=0;state.taxPayable=0;
+  addLog(`Registraste un pago de IVA simulado de ${fmt(due)}. No es una declaración real.`);render();notify('Pago educativo registrado. No se envió información al SII.');
+});
+$('saveBtn').addEventListener('click',saveGame);
+$('resetBtn').addEventListener('click',()=>{
+  if(confirm('¿Terminar esta partida y crear una nueva? Guarda antes si quieres conservarla.')) {
+    state=null;order=null;logs=[];$('game').classList.add('hidden');$('setup').classList.remove('hidden');$('toast').classList.add('hidden');
+  }
+});
+updateCapital();
+loadGame();
+})();
+</script>
+</body>
+</html>
